@@ -1,0 +1,36 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  case_id:
+    type: string
+  primary_label:
+    type: string
+  customer_tone:
+    type: string
+    enum:
+      - neutral
+      - frustrated
+      - urgent
+      - hostile
+  compensation_requested:
+    type: boolean
+  human_review_required:
+    type: boolean
+  policy_sources:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      properties:
+        policy_id:
+          type: string
+        title:
+          type: string
+required:
+  - case_id
+  - primary_label
+  - human_review_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

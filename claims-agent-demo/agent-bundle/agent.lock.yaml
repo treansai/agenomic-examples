@@ -1,0 +1,30 @@
+apiVersion: agentlock/v1alpha1
+kind: AgentLock
+metadata:
+  name: claims-agent-demo
+  revision: "2026-04-29"
+  synthetic: true
+locked:
+  model:
+    provider: openai
+    name: gpt-4.1-mini
+    temperature: 0.0
+    reasoning_effort: low
+  prompts:
+    system: prompts/system.md
+    skills:
+      - prompts/skills/classify_claim.md
+      - prompts/skills/draft_response.md
+  controls:
+    behavior_contract: behavior.contract.yaml
+    tool_lock: tools/mcp.lock.yaml
+    memory_schema: memory/memory.schema.yaml
+    policy_modules:
+      - policies/compensation_policy.rego
+  replay:
+    manifest: evals/replay_manifest.yaml
+release_notes:
+  purpose: public_example_bundle
+  caveats:
+    - All entities, claim IDs, and policy references are synthetic.
+    - Lock contents are illustrative and intended for education.

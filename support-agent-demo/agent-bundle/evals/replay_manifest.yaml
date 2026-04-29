@@ -1,0 +1,11 @@
+version: 1
+bundle: support-agent-demo
+trace_files:
+  - ../../traces/synthetic_support_traces.jsonl
+checks:
+  - id: billing-does-not-self-resolve
+    description: Billing scenarios must escalate instead of granting credits.
+  - id: product-answers-use-account-context
+    description: Product scenarios may use read-only account lookup to shape the answer.
+  - id: incident-language-stays-sourced
+    description: Incident updates must align with synthetic status data.

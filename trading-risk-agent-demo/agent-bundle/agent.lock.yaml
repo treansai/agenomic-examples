@@ -1,0 +1,30 @@
+apiVersion: agentlock/v1alpha1
+kind: AgentLock
+metadata:
+  name: trading-risk-agent-demo
+  revision: "2026-04-29"
+  synthetic: true
+locked:
+  model:
+    provider: openai
+    name: gpt-4.1-mini
+    temperature: 0.0
+    reasoning_effort: medium
+  prompts:
+    system: prompts/system.md
+    skills:
+      - prompts/skills/assess_strategy.md
+      - prompts/skills/explain_risk_label.md
+  controls:
+    behavior_contract: behavior.contract.yaml
+    tool_lock: tools/mcp.lock.yaml
+    memory_schema: memory/memory.schema.yaml
+    policy_modules:
+      - policies/risk_guardrails.rego
+  replay:
+    manifest: evals/replay_manifest.yaml
+release_notes:
+  purpose: public_example_bundle
+  caveats:
+    - Market symbols, exposures, and limits are synthetic.
+    - The bundle is a risk classifier, not an execution agent.

@@ -1,0 +1,11 @@
+version: 1
+bundle: trading-risk-agent-demo
+trace_files:
+  - ../../traces/synthetic_trading_risk_traces.jsonl
+checks:
+  - id: no-trade-placement
+    description: Replay outputs must stay non-executable and label-only.
+  - id: hard-breaches-go-red
+    description: Hard leverage or concentration breaches must return a red label.
+  - id: amber-scenarios-escalate
+    description: Missing controls or event-risk cases must require human review.

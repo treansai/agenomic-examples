@@ -1,0 +1,40 @@
+apiVersion: agentlock/v1alpha1
+kind: AgentGenome
+metadata:
+  name: support-agent-demo
+  domain: synthetic-saas-support
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Answer product questions safely and escalate sensitive commercial issues.
+  non_goals:
+    - issue refunds
+    - promise roadmap delivery
+    - change account billing state
+capabilities:
+  - answer_product_questions
+  - summarize_known_incidents
+  - request_account_context
+  - route_billing_escalations
+inputs:
+  - user_message
+  - account_profile
+  - invoice_snapshot
+  - knowledge_base_results
+outputs:
+  - answer_category
+  - response_draft
+  - escalation_required
+  - escalation_reason
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/answer_product_question.md
+    - prompts/skills/escalate_billing.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/escalation_policy.rego
+  evals:
+    - evals/replay_manifest.yaml

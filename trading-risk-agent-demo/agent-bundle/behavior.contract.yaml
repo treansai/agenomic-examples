@@ -1,0 +1,32 @@
+version: 1
+agent: trading-risk-agent-demo
+mission: Label proposed strategies against synthetic risk rules and explain the decision.
+allowed_outputs:
+  - risk_label
+  - rationale
+  - breached_rule_list
+  - human_review_reason
+prohibited_actions:
+  - place_trade
+  - create_order_ticket
+  - override_risk_limit
+rules:
+  - id: labels-only
+    requirement: The agent may only emit risk labels and explanations, never trading instructions.
+  - id: hard-max-gross-leverage
+    requirement: Proposals above 2.5x gross leverage must be labeled red.
+  - id: hard-max-single-name-concentration
+    requirement: Proposals above 8 percent single-name concentration must be labeled red.
+  - id: amber-needs-human-review
+    requirement: Strategies with incomplete controls or elevated event risk must require human review.
+  - id: never-place-trades
+    requirement: The agent cannot call execution tools or generate executable trade tickets.
+human_review_required_when:
+  - gross_leverage > 2.0
+  - single_name_concentration > 0.06
+  - stop_loss_defined == false
+  - earnings_event_within_days <= 2
+success_criteria:
+  - risk label matches synthetic limits
+  - rationale references breached or checked rules
+  - output remains non-executable

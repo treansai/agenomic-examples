@@ -1,0 +1,43 @@
+version: 1
+tools:
+  - name: accounts.lookup_profile
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic account plan, enabled features, and support tier.
+    allowed_fields:
+      - account_id
+      - plan_name
+      - enabled_features
+      - support_tier
+      - renewal_window
+  - name: billing.lookup_invoice
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic invoice status and charge summary.
+    allowed_fields:
+      - invoice_id
+      - amount_due
+      - due_date
+      - usage_overage
+      - dispute_status
+  - name: knowledge_base.search_article
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic help-center articles and setup guides.
+  - name: status.current_incidents
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic incident summaries and current lifecycle state.
+  - name: workflow.create_billing_escalation
+    transport: mcp
+    access: limited_write
+    purpose: Create a human billing-review task without changing money or account state.
+    allowed_payload:
+      - account_id
+      - invoice_id
+      - queue
+      - reason
+    denied_payload:
+      - credit_amount
+      - refund_approved
+      - invoice_status

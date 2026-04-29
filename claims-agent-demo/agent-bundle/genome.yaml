@@ -1,0 +1,39 @@
+apiVersion: agentlock/v1alpha1
+kind: AgentGenome
+metadata:
+  name: claims-agent-demo
+  domain: synthetic-insurance-claims
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Classify complaint messages and draft safe, policy-aware responses.
+  non_goals:
+    - Finalize compensation
+    - Provide legal advice
+    - Expose unverified claim details
+capabilities:
+  - classify_customer_complaint
+  - draft_claim_response
+  - request_missing_documents
+  - route_human_follow_up
+inputs:
+  - customer_message
+  - claim_case_snapshot
+  - policy_search_results
+outputs:
+  - primary_label
+  - response_draft
+  - human_review_required
+  - supporting_policy_sources
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/classify_claim.md
+    - prompts/skills/draft_response.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/compensation_policy.rego
+  evals:
+    - evals/replay_manifest.yaml

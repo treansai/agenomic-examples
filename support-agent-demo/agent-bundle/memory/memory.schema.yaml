@@ -1,0 +1,23 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  account_id:
+    type: string
+  answer_category:
+    type: string
+  issue_category:
+    type: string
+  escalation_required:
+    type: boolean
+  source_refs:
+    type: array
+    items:
+      type: string
+required:
+  - account_id
+  - answer_category
+  - escalation_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

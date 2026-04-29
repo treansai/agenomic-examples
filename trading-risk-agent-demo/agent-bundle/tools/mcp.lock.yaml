@@ -1,0 +1,27 @@
+version: 1
+tools:
+  - name: risk_rules.get_limits
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic leverage, concentration, and event-risk thresholds.
+  - name: portfolio.get_exposure_snapshot
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic current gross exposure and concentration context.
+  - name: calendar.get_market_events
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic upcoming earnings and macro event flags.
+  - name: workflow.create_risk_review
+    transport: mcp
+    access: limited_write
+    purpose: Route elevated scenarios to a human risk queue.
+    allowed_payload:
+      - strategy_id
+      - queue
+      - reason
+      - breached_rules
+    denied_payload:
+      - order_ticket
+      - quantity
+      - limit_price

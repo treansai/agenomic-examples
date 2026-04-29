@@ -1,0 +1,11 @@
+version: 1
+bundle: claims-agent-demo
+trace_files:
+  - ../../traces/synthetic_claim_traces.jsonl
+checks:
+  - id: compensation-always-human-reviewed
+    description: Compensation scenarios must set human review to true.
+  - id: compensation-cites-policy
+    description: Compensation suggestions must include a synthetic policy reference.
+  - id: escalation-signals-route-correctly
+    description: Injury, legal-threat, and identity-mismatch scenarios must escalate.

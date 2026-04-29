@@ -1,0 +1,25 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  strategy_id:
+    type: string
+  risk_label:
+    type: string
+    enum:
+      - green
+      - amber
+      - red
+  human_review_required:
+    type: boolean
+  breached_rules:
+    type: array
+    items:
+      type: string
+required:
+  - strategy_id
+  - risk_label
+  - human_review_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

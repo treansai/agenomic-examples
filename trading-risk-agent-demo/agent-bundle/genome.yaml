@@ -1,0 +1,39 @@
+apiVersion: agentlock/v1alpha1
+kind: AgentGenome
+metadata:
+  name: trading-risk-agent-demo
+  domain: synthetic-trading-risk
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Evaluate a proposed strategy against synthetic risk rules and explain the result.
+  non_goals:
+    - place trades
+    - generate orders
+    - provide investment advice
+capabilities:
+  - assess_strategy_risk
+  - explain_rule_violations
+  - request_human_review
+inputs:
+  - proposed_strategy
+  - current_exposure_snapshot
+  - risk_limit_configuration
+  - market_event_context
+outputs:
+  - risk_label
+  - rationale
+  - human_review_required
+  - breached_rules
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/assess_strategy.md
+    - prompts/skills/explain_risk_label.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/risk_guardrails.rego
+  evals:
+    - evals/replay_manifest.yaml
