@@ -1,7 +1,7 @@
 [project]
-name = "agentlock-examples"
+name = "agenomic-examples"
 version = "0.1.0"
-description = "Synthetic public examples showing how AgentLock bundles can be structured across multiple domains."
+description = "Synthetic public examples showing how Agenomic bundles can be structured across multiple domains."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []

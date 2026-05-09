@@ -1,5 +1,5 @@
-apiVersion: agentlock/v1alpha1
-kind: AgentLock
+apiVersion: agenomic/v1alpha1
+kind: Agenomic
 metadata:
   name: claims-agent-demo
   revision: "2026-04-29"
