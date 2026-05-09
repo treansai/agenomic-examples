@@ -1,6 +1,6 @@
 # Trading Risk Agent Demo
 
-`trading-risk-agent-demo` is a synthetic trading-assistant risk checker. It demonstrates how AgentLock can support a pre-trade control function without letting the agent execute trades or act as an autonomous portfolio manager.
+`trading-risk-agent-demo` is a synthetic trading-assistant risk checker. It demonstrates how Agenomic can support a pre-trade control function without letting the agent execute trades or act as an autonomous portfolio manager.
 
 ## What it does
 
@@ -14,18 +14,18 @@
 - creates order tickets
 - bypasses hard risk limits
 
-## Expected AgentLock workflow
+## Expected Agenomic workflow
 
-If `agentlock` is available in your environment, these are the expected commands:
+If `agenomic` is available in your environment, these are the expected commands:
 
 ```bash
-agentlock validate trading-risk-agent-demo/agent-bundle
-agentlock build trading-risk-agent-demo/agent-bundle
-agentlock replay trading-risk-agent-demo/agent-bundle --manifest trading-risk-agent-demo/agent-bundle/evals/replay_manifest.yaml
-agentlock diff trading-risk-agent-demo/agent-bundle /path/to/modified-trading-risk-agent-bundle
+agenomic validate trading-risk-agent-demo/agent-bundle
+agenomic build trading-risk-agent-demo/agent-bundle
+agenomic replay trading-risk-agent-demo/agent-bundle --manifest trading-risk-agent-demo/agent-bundle/evals/replay_manifest.yaml
+agenomic diff trading-risk-agent-demo/agent-bundle /path/to/modified-trading-risk-agent-bundle
 ```
 
-If `agentlock` is not installed, inspect the bundle files directly and use the local app to browse the synthetic traces.
+If `agenomic` is not installed, inspect the bundle files directly and use the local app to browse the synthetic traces.
 
 ## Local demo app
 

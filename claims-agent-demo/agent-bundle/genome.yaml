@@ -1,4 +1,4 @@
-apiVersion: agentlock/v1alpha1
+apiVersion: agenomic/v1alpha1
 kind: AgentGenome
 metadata:
   name: claims-agent-demo

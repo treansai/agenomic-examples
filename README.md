@@ -1,6 +1,6 @@
-# agentlock-examples
+# agenomic-examples
 
-Synthetic, public-facing examples that show how AgentLock can constrain domain agents without exposing real data, real secrets, or proprietary business logic.
+Synthetic, public-facing examples that show how Agenomic can constrain domain agents without exposing real data, real secrets, or proprietary business logic.
 
 These demos are designed to be read quickly:
 
@@ -33,17 +33,17 @@ Each demo includes:
 - An `agent-bundle/` with prompts, contracts, tool locks, memory schema, policies, and replay manifest
 - A `traces/` directory with pre-generated synthetic JSONL traces
 - A small `app/` folder with a Python script that replays or summarizes the traces locally
-- A demo-specific `README.md` with expected `agentlock` commands
+- A demo-specific `README.md` with expected `agenomic` commands
 
 ## Quick start
 
-The `agentlock` CLI is not required to learn from these examples. If it is installed in your environment, the expected workflow for each demo is:
+The `agenomic` CLI is not required to learn from these examples. If it is installed in your environment, the expected workflow for each demo is:
 
 ```bash
-agentlock validate claims-agent-demo/agent-bundle
-agentlock build claims-agent-demo/agent-bundle
-agentlock replay claims-agent-demo/agent-bundle --manifest claims-agent-demo/agent-bundle/evals/replay_manifest.yaml
-agentlock diff claims-agent-demo/agent-bundle /path/to/modified-claims-agent-bundle
+agenomic validate claims-agent-demo/agent-bundle
+agenomic build claims-agent-demo/agent-bundle
+agenomic replay claims-agent-demo/agent-bundle --manifest claims-agent-demo/agent-bundle/evals/replay_manifest.yaml
+agenomic diff claims-agent-demo/agent-bundle /path/to/modified-claims-agent-bundle
 ```
 
 If the CLI is not installed, you can still inspect the bundle files directly and run the local Python helpers:
@@ -57,7 +57,7 @@ python3 trading-risk-agent-demo/app/main.py --list
 
 ## What each demo demonstrates
 
-| Demo | Primary value | Core AgentLock controls |
+| Demo | Primary value | Core Agenomic controls |
 | --- | --- | --- |
 | `claims-agent-demo` | Safe complaint triage and response drafting | Human approval for compensation, required policy citations, escalation on injury or identity mismatch |
 | `support-agent-demo` | Trustworthy product support responses | Billing escalation, read-only account lookups, no unsupported credits or roadmap promises |
@@ -81,5 +81,5 @@ python3 scripts/generate_synthetic_traces.py
 ## Notes
 
 - The YAML, Markdown, and Rego files are intentionally compact and readable.
-- The lock files are illustrative examples of how a public AgentLock bundle can be organized.
+- The lock files are illustrative examples of how a public Agenomic bundle can be organized.
 - The demo apps use only the Python standard library so the repository stays easy to explore.

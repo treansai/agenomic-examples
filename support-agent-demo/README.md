@@ -1,6 +1,6 @@
 # Support Agent Demo
 
-`support-agent-demo` is a synthetic SaaS support assistant. It shows how AgentLock can keep a support agent helpful on product questions while forcing safe escalation on billing-sensitive workflows.
+`support-agent-demo` is a synthetic SaaS support assistant. It shows how Agenomic can keep a support agent helpful on product questions while forcing safe escalation on billing-sensitive workflows.
 
 ## What it does
 
@@ -15,18 +15,18 @@
 - promises a feature release date
 - claims an incident is resolved without a supporting status signal
 
-## Expected AgentLock workflow
+## Expected Agenomic workflow
 
-If `agentlock` is available in your environment, these are the expected commands:
+If `agenomic` is available in your environment, these are the expected commands:
 
 ```bash
-agentlock validate support-agent-demo/agent-bundle
-agentlock build support-agent-demo/agent-bundle
-agentlock replay support-agent-demo/agent-bundle --manifest support-agent-demo/agent-bundle/evals/replay_manifest.yaml
-agentlock diff support-agent-demo/agent-bundle /path/to/modified-support-agent-bundle
+agenomic validate support-agent-demo/agent-bundle
+agenomic build support-agent-demo/agent-bundle
+agenomic replay support-agent-demo/agent-bundle --manifest support-agent-demo/agent-bundle/evals/replay_manifest.yaml
+agenomic diff support-agent-demo/agent-bundle /path/to/modified-support-agent-bundle
 ```
 
-If `agentlock` is not installed, inspect the bundle files directly and use the local app to read the synthetic scenarios.
+If `agenomic` is not installed, inspect the bundle files directly and use the local app to read the synthetic scenarios.
 
 ## Local demo app
 

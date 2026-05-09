@@ -1,6 +1,6 @@
 # Claims Agent Demo
 
-`claims-agent-demo` is a synthetic insurance-style complaint assistant. It shows how AgentLock can allow useful customer support behavior while preventing unsafe autonomy around compensation.
+`claims-agent-demo` is a synthetic insurance-style complaint assistant. It shows how Agenomic can allow useful customer support behavior while preventing unsafe autonomy around compensation.
 
 ## What it does
 
@@ -22,18 +22,18 @@
 - `agent-bundle/prompts/` contains the system prompt and reusable skills
 - `traces/synthetic_claim_traces.jsonl` includes safe examples and edge cases
 
-## Expected AgentLock workflow
+## Expected Agenomic workflow
 
-If `agentlock` is available in your environment, these are the expected commands:
+If `agenomic` is available in your environment, these are the expected commands:
 
 ```bash
-agentlock validate claims-agent-demo/agent-bundle
-agentlock build claims-agent-demo/agent-bundle
-agentlock replay claims-agent-demo/agent-bundle --manifest claims-agent-demo/agent-bundle/evals/replay_manifest.yaml
-agentlock diff claims-agent-demo/agent-bundle /path/to/modified-claims-agent-bundle
+agenomic validate claims-agent-demo/agent-bundle
+agenomic build claims-agent-demo/agent-bundle
+agenomic replay claims-agent-demo/agent-bundle --manifest claims-agent-demo/agent-bundle/evals/replay_manifest.yaml
+agenomic diff claims-agent-demo/agent-bundle /path/to/modified-claims-agent-bundle
 ```
 
-If `agentlock` is not installed, treat the commands above as the intended workflow and inspect the bundle files directly.
+If `agenomic` is not installed, treat the commands above as the intended workflow and inspect the bundle files directly.
 
 ## Local demo app
 
