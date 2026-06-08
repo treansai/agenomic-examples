@@ -1,0 +1,35 @@
+version: 1
+tools:
+  - name: perp.get_market
+    transport: mcp
+    access: read
+    purpose: Retrieve a synthetic mark price + funding snapshot.
+    allowed_fields:
+      - asset
+      - mark_price
+      - funding_rate
+      - maintenance_margin
+  - name: perp.get_account
+    transport: mcp
+    access: read
+    purpose: Retrieve a synthetic account snapshot.
+    allowed_fields:
+      - account_id
+      - equity
+      - open_positions
+      - free_margin
+  - name: workflow.create_human_confirmation
+    transport: mcp
+    access: limited_write
+    purpose: Queue a human confirmation step in the trading UI. Does NOT submit the order.
+    allowed_payload:
+      - account_id
+      - asset
+      - side
+      - size
+      - disposition
+      - rationale
+    denied_payload:
+      - signed_payload
+      - tx_hash
+      - private_key

@@ -1,0 +1,26 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  ticker:
+    type: string
+  signal:
+    type: string
+    enum: [long, short, flat]
+  confidence:
+    type: number
+    minimum: 0
+    maximum: 1
+  driver:
+    type: string
+    enum: [price_action, news, fundamentals, mixed]
+  human_review_required:
+    type: boolean
+required:
+  - ticker
+  - signal
+  - confidence
+  - human_review_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

@@ -1,0 +1,34 @@
+version: 1
+agent: ecommerce-returns-agent-demo
+mission: Handle synthetic return and refund requests within strict policy caps.
+allowed_outputs:
+  - eligibility_status
+  - proposed_refund_amount
+  - return_label_request
+  - human_review_reason
+prohibited_actions:
+  - issue_refund_above_cap
+  - override_return_window
+  - accept_excluded_category
+  - waive_restocking_fee_without_policy
+limits:
+  autonomous_refund_cap_eur: 80
+  return_window_days: 30
+rules:
+  - id: classify-every-request
+    requirement: Every return request must have a `return_reason` from the allowed enum.
+  - id: cap-autonomous-refund
+    requirement: Refunds above the autonomous cap must escalate to a human reviewer.
+  - id: respect-window
+    requirement: Orders past the return window must escalate, never auto-approve.
+  - id: excluded-category-escalates
+    requirement: Excluded categories (perishables, custom, hygiene) always escalate.
+human_review_required_when:
+  - amount_above_cap == true
+  - outside_return_window == true
+  - excluded_category == true
+  - fraud_signal == true
+success_criteria:
+  - return_reason set
+  - eligibility_status set
+  - refund stays within the autonomous cap when self-approved

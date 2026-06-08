@@ -1,0 +1,30 @@
+version: 1
+tools:
+  - name: expense.lookup_report
+    transport: mcp
+    access: read
+    purpose: Retrieve a synthetic expense report.
+    allowed_fields:
+      - report_id
+      - employee_id
+      - line_items
+      - submitted_at
+  - name: knowledge_base.search_te_policy
+    transport: mcp
+    access: read
+    purpose: Retrieve T&E policy excerpts.
+    output_requirements:
+      - policy_id
+      - title
+      - excerpt
+  - name: workflow.create_finance_review
+    transport: mcp
+    access: limited_write
+    purpose: Queue a finance reviewer ticket.
+    allowed_payload:
+      - report_id
+      - flagged_lines
+      - reason
+    denied_payload:
+      - approved
+      - reimbursed_amount

@@ -1,0 +1,39 @@
+apiVersion: agenomic/v1alpha1
+kind: AgentGenome
+metadata:
+  name: ecommerce-returns-agent-demo
+  domain: synthetic-ecommerce-returns
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Help customers initiate returns and refunds within published policy limits, escalate anything outside the limits to a human.
+  non_goals:
+    - Issue refunds above the autonomous cap
+    - Override policy windows
+    - Accept returns for excluded categories
+capabilities:
+  - classify_return_reason
+  - check_eligibility
+  - propose_refund
+  - escalate_exception
+inputs:
+  - customer_message
+  - order_snapshot
+  - return_policy
+outputs:
+  - return_reason
+  - eligibility_status
+  - proposed_refund_amount
+  - human_review_required
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/check_eligibility.md
+    - prompts/skills/propose_refund.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/refund_guardrails.rego
+  evals:
+    - evals/replay_manifest.yaml

@@ -1,0 +1,37 @@
+apiVersion: agenomic/v1alpha1
+kind: AgentGenome
+metadata:
+  name: finance-expense-agent-demo
+  domain: synthetic-expense-reports
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Pre-screen expense reports against the corporate travel and expense policy and recommend approve / clarify / escalate.
+  non_goals:
+    - Approve or reimburse expenses on its own
+    - Override per-diem caps
+    - Categorize personal expenses as business
+capabilities:
+  - classify_expense
+  - check_policy_compliance
+  - recommend_disposition
+  - request_missing_receipt
+inputs:
+  - expense_report
+  - travel_policy
+outputs:
+  - line_items_review
+  - recommended_disposition
+  - human_review_required
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/classify_line_item.md
+    - prompts/skills/recommend_disposition.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/expense_guardrails.rego
+  evals:
+    - evals/replay_manifest.yaml

@@ -1,0 +1,27 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  account_id:
+    type: string
+  asset:
+    type: string
+  disposition:
+    type: string
+    enum: [accept_for_human_confirmation, reduce_size, reject]
+  leverage_ratio:
+    type: number
+  liquidation_distance_pct:
+    type: number
+  notional_pct_of_equity:
+    type: number
+  human_confirmation_required:
+    type: boolean
+required:
+  - account_id
+  - asset
+  - disposition
+  - human_confirmation_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

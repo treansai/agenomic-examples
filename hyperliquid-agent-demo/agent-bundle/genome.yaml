@@ -1,0 +1,39 @@
+apiVersion: agenomic/v1alpha1
+kind: AgentGenome
+metadata:
+  name: hyperliquid-agent-demo
+  domain: synthetic-hyperliquid-perps
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Pre-trade review of proposed perpetual orders on a Hyperliquid-style venue. Plans only — never signs.
+  non_goals:
+    - Sign or broadcast transactions
+    - Manage private keys
+    - Allocate user funds without explicit human confirmation
+capabilities:
+  - parse_proposed_order
+  - check_margin_and_leverage
+  - estimate_liquidation_distance
+  - recommend_disposition
+inputs:
+  - proposed_order
+  - account_snapshot
+  - market_snapshot
+outputs:
+  - disposition
+  - leverage_ratio
+  - liquidation_distance_pct
+  - human_confirmation_required
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/check_margin.md
+    - prompts/skills/recommend_disposition.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/perp_guardrails.rego
+  evals:
+    - evals/replay_manifest.yaml

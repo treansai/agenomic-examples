@@ -1,0 +1,28 @@
+apiVersion: agenomic/v1alpha1
+kind: Agenomic
+metadata:
+  name: devops-incident-agent-demo
+  revision: "2026-06-08"
+  synthetic: true
+locked:
+  model:
+    provider: anthropic
+    name: claude-haiku-4-5-20251001
+    temperature: 0.0
+  prompts:
+    system: prompts/system.md
+    skills:
+      - prompts/skills/triage_alert.md
+      - prompts/skills/propose_remediation.md
+  controls:
+    behavior_contract: behavior.contract.yaml
+    tool_lock: tools/mcp.lock.yaml
+    memory_schema: memory/memory.schema.yaml
+    policy_modules:
+      - policies/incident_guardrails.rego
+  replay:
+    manifest: evals/replay_manifest.yaml
+release_notes:
+  purpose: public_example_bundle
+  caveats:
+    - All services, hostnames, and alert IDs are synthetic.

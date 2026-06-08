@@ -1,0 +1,39 @@
+apiVersion: agenomic/v1alpha1
+kind: AgentGenome
+metadata:
+  name: hr-agent-demo
+  domain: synthetic-hr-employee-support
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Answer employee onboarding and leave questions, route policy-sensitive cases to a human HR partner.
+  non_goals:
+    - Approve or deny leave
+    - Modify payroll or benefits records
+    - Provide jurisdictional legal advice
+capabilities:
+  - answer_hr_question
+  - summarize_leave_balance
+  - flag_policy_exception
+  - draft_manager_handoff
+inputs:
+  - employee_message
+  - leave_snapshot
+  - policy_search_results
+outputs:
+  - primary_topic
+  - response_draft
+  - human_review_required
+  - policy_sources
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/answer_question.md
+    - prompts/skills/manager_handoff.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/hr_guardrails.rego
+  evals:
+    - evals/replay_manifest.yaml

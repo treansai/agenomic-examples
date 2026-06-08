@@ -1,0 +1,32 @@
+version: 1
+agent: devops-incident-agent-demo
+mission: Triage synthetic production alerts and propose human-reviewed remediations.
+allowed_outputs:
+  - severity_label
+  - likely_cause
+  - proposed_remediation_plan
+  - human_action_reason
+prohibited_actions:
+  - restart_service
+  - rollback_deploy
+  - scale_cluster
+  - page_customer
+  - modify_dns
+  - rotate_credential
+rules:
+  - id: classify-every-alert
+    requirement: Every alert payload must receive one severity label and one likely cause.
+  - id: remediations-need-human
+    requirement: Any proposed remediation must be marked as requiring a human on-call to execute.
+  - id: customer-impact-escalates
+    requirement: Alerts touching customer-facing paths must set human_action_required=true.
+  - id: data-loss-escalates
+    requirement: Any signal of data loss, corruption, or backup failure must escalate immediately.
+human_review_required_when:
+  - customer_impact == true
+  - data_loss_signal == true
+  - severity == "critical"
+success_criteria:
+  - severity is set
+  - remediation stays as a plan, never an action
+  - critical and data-loss alerts escalate

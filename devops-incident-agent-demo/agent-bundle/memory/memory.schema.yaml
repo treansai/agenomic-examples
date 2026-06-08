@@ -1,0 +1,24 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  alert_id:
+    type: string
+  severity:
+    type: string
+    enum: [info, low, medium, high, critical]
+  likely_cause:
+    type: string
+  human_action_required:
+    type: boolean
+  customer_impact:
+    type: boolean
+  data_loss_signal:
+    type: boolean
+required:
+  - alert_id
+  - severity
+  - human_action_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

@@ -1,0 +1,22 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  source_id:
+    type: string
+  sensitivity_label:
+    type: string
+    enum: [public, internal, confidential, restricted]
+  detected_categories:
+    type: array
+    items:
+      type: string
+  human_review_required:
+    type: boolean
+required:
+  - source_id
+  - sensitivity_label
+  - human_review_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

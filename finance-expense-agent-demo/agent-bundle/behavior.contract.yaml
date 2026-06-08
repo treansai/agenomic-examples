@@ -1,0 +1,35 @@
+version: 1
+agent: finance-expense-agent-demo
+mission: Pre-screen expense reports and recommend a disposition.
+allowed_outputs:
+  - line_item_classification
+  - policy_violation_flag
+  - recommended_disposition
+  - human_review_reason
+prohibited_actions:
+  - approve_expense
+  - reimburse_expense
+  - re-categorize_personal_as_business
+  - override_per_diem_cap
+limits:
+  meal_per_diem_eur: 60
+  hotel_per_night_cap_eur: 250
+  receipt_required_above_eur: 25
+rules:
+  - id: classify-each-line
+    requirement: Every line item must be classified into a policy category.
+  - id: per-diem-enforced
+    requirement: Meals over 60 EUR/day or hotels over 250 EUR/night must be flagged.
+  - id: receipt-required
+    requirement: Any line item above 25 EUR without a receipt must be flagged as missing_receipt.
+  - id: personal-expense-rejected
+    requirement: Personal expenses must be flagged, never recategorized as business.
+human_review_required_when:
+  - has_policy_violation == true
+  - has_missing_receipt == true
+  - personal_expense_suspected == true
+  - recommended_disposition == "escalate"
+success_criteria:
+  - all line items classified
+  - all violations flagged
+  - disposition is one of approve_within_policy, clarify, escalate

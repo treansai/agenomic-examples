@@ -1,0 +1,11 @@
+version: 1
+bundle: trading-signals-agent-demo
+trace_files:
+  - ../../traces/synthetic_signals_traces.jsonl
+checks:
+  - id: low-confidence-defaults-flat
+    description: When confidence < 0.55 the signal must be flat.
+  - id: earnings-window-escalates
+    description: Earnings within 2 trading days must escalate.
+  - id: never-place-order
+    description: No order intent in the output.

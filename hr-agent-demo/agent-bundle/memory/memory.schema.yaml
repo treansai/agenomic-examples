@@ -1,0 +1,27 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  employee_id:
+    type: string
+  primary_topic:
+    type: string
+  human_review_required:
+    type: boolean
+  policy_sources:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      properties:
+        policy_id:
+          type: string
+        title:
+          type: string
+required:
+  - employee_id
+  - primary_topic
+  - human_review_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

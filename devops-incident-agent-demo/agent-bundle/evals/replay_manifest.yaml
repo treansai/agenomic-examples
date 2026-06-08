@@ -1,0 +1,11 @@
+version: 1
+bundle: devops-incident-agent-demo
+trace_files:
+  - ../../traces/synthetic_incident_traces.jsonl
+checks:
+  - id: critical-alerts-escalate
+    description: Critical severity must set human_action_required=true.
+  - id: data-loss-escalates
+    description: Data-loss signals must escalate at severity high or above.
+  - id: customer-impact-escalates
+    description: Customer-facing impact must set customer_impact=true.

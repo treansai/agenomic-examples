@@ -1,0 +1,32 @@
+version: 1
+tools:
+  - name: catalog.lookup_source
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic source-system metadata (system_name, owner, region).
+    allowed_fields:
+      - source_id
+      - system_name
+      - data_owner
+      - region
+  - name: policy.search_dlp_policy
+    transport: mcp
+    access: read
+    purpose: Retrieve generic synthetic DLP policy excerpts.
+    output_requirements:
+      - policy_id
+      - title
+      - excerpt
+  - name: workflow.create_dpo_review
+    transport: mcp
+    access: limited_write
+    purpose: Queue a DPO review without touching the underlying data.
+    allowed_payload:
+      - source_id
+      - sensitivity_label
+      - detected_categories
+      - reason
+    denied_payload:
+      - raw_record
+      - export_target
+      - decrypt_action

@@ -4,9 +4,21 @@ Synthetic, public-facing examples that show how Agenomic can constrain domain ag
 
 These demos are designed to be read quickly:
 
-- `claims-agent-demo` shows a customer claims assistant that can classify complaints and draft replies, but cannot commit compensation.
-- `support-agent-demo` shows a SaaS support agent that can answer product questions, use synthetic account lookup context, and escalate billing issues.
-- `trading-risk-agent-demo` shows a risk checker that labels proposed strategies and explains violations, but never places trades.
+Read-only trace demos (no API key needed):
+
+- `claims-agent-demo` — customer claims assistant that classifies complaints and drafts replies, but cannot commit compensation.
+- `support-agent-demo` — SaaS support agent that answers product questions and escalates billing issues.
+- `trading-risk-agent-demo` — risk checker that labels proposed strategies but never places trades.
+
+Live-LLM demos (call a real provider; see each demo's README):
+
+- `hr-agent-demo` — answers employee onboarding/leave questions, never approves leave or modifies payroll.
+- `devops-incident-agent-demo` — triages alerts and proposes remediation plans for a human on-call to execute.
+- `ecommerce-returns-agent-demo` — handles returns under an 80 EUR autonomous refund cap, escalates above.
+- `finance-expense-agent-demo` — pre-screens expense reports against per-diem and receipt rules.
+- `trading-signals-agent-demo` — emits directional equity signals with explicit confidence, never executes.
+- `hyperliquid-agent-demo` — pre-trade reviewer for a Hyperliquid-style perp venue, never signs or broadcasts.
+- `data-classification-agent-demo` — labels record snippets, recommends controls, never echoes PII back.
 
 Everything in this repository is synthetic:
 
@@ -25,6 +37,14 @@ Everything in this repository is synthetic:
 ├── claims-agent-demo/
 ├── support-agent-demo/
 ├── trading-risk-agent-demo/
+├── hr-agent-demo/
+├── devops-incident-agent-demo/
+├── ecommerce-returns-agent-demo/
+├── finance-expense-agent-demo/
+├── trading-signals-agent-demo/
+├── hyperliquid-agent-demo/
+├── data-classification-agent-demo/
+├── runner/
 └── scripts/
 ```
 
@@ -55,6 +75,33 @@ python3 support-agent-demo/app/main.py --list
 python3 trading-risk-agent-demo/app/main.py --list
 ```
 
+## Live-LLM demos
+
+The seven demos under `hr-agent-demo`, `devops-incident-agent-demo`,
+`ecommerce-returns-agent-demo`, `finance-expense-agent-demo`,
+`trading-signals-agent-demo`, `hyperliquid-agent-demo`, and
+`data-classification-agent-demo` each ship a small `app/main.py` that
+loads the agent bundle, calls the provider declared in
+`agent-bundle/agent.lock.yaml`, and checks the model's JSON output
+against the behavior contract.
+
+```bash
+pip install anthropic pyyaml
+export ANTHROPIC_API_KEY=sk-ant-...
+python3 hr-agent-demo/app/main.py --list
+python3 hr-agent-demo/app/main.py --scenario hr-leave-002
+python3 hr-agent-demo/app/main.py --all
+# add --dry-run to inspect the input payload without calling the model
+```
+
+Switch a demo to OpenAI by editing its `agent.lock.yaml`
+(`provider: openai`, `name: gpt-4.1-mini`) and exporting `OPENAI_API_KEY`
+instead.
+
+The shared runtime lives in `runner/agenomic_runtime.py` and is intentionally
+minimal — it is here so the demos can be exercised end-to-end against a
+real model, not as a replacement for the full Agenomic runtime.
+
 ## What each demo demonstrates
 
 | Demo | Primary value | Core Agenomic controls |
@@ -62,6 +109,13 @@ python3 trading-risk-agent-demo/app/main.py --list
 | `claims-agent-demo` | Safe complaint triage and response drafting | Human approval for compensation, required policy citations, escalation on injury or identity mismatch |
 | `support-agent-demo` | Trustworthy product support responses | Billing escalation, read-only account lookups, no unsupported credits or roadmap promises |
 | `trading-risk-agent-demo` | Explainable pre-trade risk review | Risk labels only, hard ban on trade placement, human review on threshold breaches |
+| `hr-agent-demo` | Employee policy questions | No leave approval, no payroll change, escalation on exceptions and cross-employee requests |
+| `devops-incident-agent-demo` | Production alert triage | Plans only — no restart, rollback, scale, DNS, or credential change |
+| `ecommerce-returns-agent-demo` | Returns & refunds under an 80 EUR cap | Hard refund cap, 30-day window, excluded categories, fraud-signal escalation |
+| `finance-expense-agent-demo` | Expense-report pre-screening | Per-diem and hotel caps, receipt rule, personal-expense detection, recommend not approve |
+| `trading-signals-agent-demo` | Explainable directional signals | Flat below confidence 0.55, earnings-window escalation, never executes |
+| `hyperliquid-agent-demo` | Perpetuals pre-trade review | 10x leverage cap, 8% liquidation distance, never signs or broadcasts |
+| `data-classification-agent-demo` | Snippet sensitivity labeling | Masked evidence only, credentials/government IDs/health records always restricted, DPO review |
 
 ## Working with the traces
 

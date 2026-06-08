@@ -1,0 +1,24 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  report_id:
+    type: string
+  recommended_disposition:
+    type: string
+    enum: [approve_within_policy, clarify, escalate]
+  human_review_required:
+    type: boolean
+  has_policy_violation:
+    type: boolean
+  has_missing_receipt:
+    type: boolean
+  personal_expense_suspected:
+    type: boolean
+required:
+  - report_id
+  - recommended_disposition
+  - human_review_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

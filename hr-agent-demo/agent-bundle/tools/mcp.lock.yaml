@@ -1,0 +1,32 @@
+version: 1
+tools:
+  - name: hr.lookup_leave_balance
+    transport: mcp
+    access: read
+    purpose: Retrieve the requesting employee's synthetic leave balance.
+    allowed_fields:
+      - employee_id
+      - leave_type
+      - balance_days
+      - accrual_rate
+  - name: knowledge_base.search_hr_policy
+    transport: mcp
+    access: read
+    purpose: Retrieve generic synthetic HR policy excerpts.
+    output_requirements:
+      - policy_id
+      - title
+      - excerpt
+  - name: workflow.create_manager_handoff
+    transport: mcp
+    access: limited_write
+    purpose: Queue a manager review without modifying leave, payroll, or benefits state.
+    allowed_payload:
+      - employee_id
+      - manager_id
+      - topic
+      - reason
+    denied_payload:
+      - leave_approved
+      - payroll_amount
+      - benefits_election
