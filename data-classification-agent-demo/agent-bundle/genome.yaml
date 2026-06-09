@@ -1,0 +1,38 @@
+apiVersion: agenomic/v1alpha1
+kind: AgentGenome
+metadata:
+  name: data-classification-agent-demo
+  domain: synthetic-data-classification
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Classify a document or record snippet into a data-sensitivity label and recommend handling controls.
+  non_goals:
+    - Move or copy the data
+    - Apply DLP actions automatically
+    - Issue a final compliance ruling
+capabilities:
+  - detect_pii
+  - classify_sensitivity
+  - recommend_handling
+  - flag_for_dpo
+inputs:
+  - record_snippet
+  - source_context
+outputs:
+  - sensitivity_label
+  - detected_categories
+  - recommended_controls
+  - human_review_required
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/detect_pii.md
+    - prompts/skills/recommend_controls.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/dlp_guardrails.rego
+  evals:
+    - evals/replay_manifest.yaml

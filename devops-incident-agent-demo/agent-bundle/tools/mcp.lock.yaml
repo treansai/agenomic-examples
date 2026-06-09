@@ -1,0 +1,31 @@
+version: 1
+tools:
+  - name: observability.fetch_logs
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic log excerpts for a given service window.
+    allowed_fields:
+      - service
+      - window
+      - log_lines
+  - name: observability.fetch_metrics
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic SLO and saturation metrics.
+    allowed_fields:
+      - service
+      - metric
+      - series
+  - name: workflow.create_oncall_ticket
+    transport: mcp
+    access: limited_write
+    purpose: Open an on-call ticket. Does not touch the affected service.
+    allowed_payload:
+      - alert_id
+      - severity
+      - likely_cause
+      - proposed_remediation_plan
+    denied_payload:
+      - executed_action
+      - deploy_id
+      - dns_change

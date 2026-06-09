@@ -1,0 +1,47 @@
+version: 1
+agent: data-classification-agent-demo
+mission: Label a synthetic record snippet and recommend handling controls.
+allowed_outputs:
+  - sensitivity_label
+  - detected_categories
+  - recommended_controls
+  - human_review_reason
+prohibited_actions:
+  - move_data
+  - copy_data
+  - apply_dlp_action
+  - issue_compliance_ruling
+  - quote_full_pii_back_to_caller
+labels:
+  - public
+  - internal
+  - confidential
+  - restricted
+categories:
+  - email_address
+  - phone_number
+  - credit_card_pan
+  - iban
+  - government_id
+  - health_record
+  - credentials
+  - location_precise
+  - none
+rules:
+  - id: pick-one-label
+    requirement: Every snippet must receive exactly one sensitivity label from the allowed set.
+  - id: redact-do-not-echo
+    requirement: When PII is detected, the output may name the category but must never echo full PII values.
+  - id: restricted-escalates
+    requirement: A `restricted` label always sets human_review_required=true with a DPO reason.
+  - id: credentials-always-restricted
+    requirement: Credentials (passwords, tokens, keys) are always at least `restricted`.
+human_review_required_when:
+  - sensitivity_label == "restricted"
+  - credentials_detected == true
+  - government_id_detected == true
+  - health_record_detected == true
+success_criteria:
+  - one label assigned
+  - categories enumerated, values redacted
+  - controls map cleanly to the label

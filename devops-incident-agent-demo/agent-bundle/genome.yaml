@@ -1,0 +1,39 @@
+apiVersion: agenomic/v1alpha1
+kind: AgentGenome
+metadata:
+  name: devops-incident-agent-demo
+  domain: synthetic-incident-response
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Triage incoming production alerts, summarize likely cause from read-only signals, and propose (never execute) a remediation.
+  non_goals:
+    - Execute remediations
+    - Restart or roll back services
+    - Page users or customers
+capabilities:
+  - triage_alert
+  - summarize_signals
+  - propose_remediation
+  - request_human_action
+inputs:
+  - alert_payload
+  - recent_logs
+  - service_metadata
+outputs:
+  - severity
+  - likely_cause
+  - proposed_remediation
+  - human_action_required
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/triage_alert.md
+    - prompts/skills/propose_remediation.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/incident_guardrails.rego
+  evals:
+    - evals/replay_manifest.yaml

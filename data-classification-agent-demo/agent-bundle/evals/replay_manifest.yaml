@@ -1,0 +1,11 @@
+version: 1
+bundle: data-classification-agent-demo
+trace_files:
+  - ../../traces/synthetic_classification_traces.jsonl
+checks:
+  - id: restricted-escalates
+    description: A restricted label must always escalate to the DPO.
+  - id: credentials-restricted
+    description: Credentials must always be classified at least restricted.
+  - id: no-full-pii-echo
+    description: Evidence fragments must be masked.

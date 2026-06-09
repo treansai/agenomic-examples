@@ -1,0 +1,34 @@
+version: 1
+tools:
+  - name: market.get_snapshot
+    transport: mcp
+    access: read
+    purpose: Retrieve a synthetic OHLCV + indicator snapshot.
+    allowed_fields:
+      - ticker
+      - last
+      - sma_20
+      - sma_50
+      - rsi_14
+      - atr_14
+      - earnings_in_days
+  - name: news.search
+    transport: mcp
+    access: read
+    purpose: Retrieve a small set of synthetic headlines for the ticker.
+    output_requirements:
+      - headline
+      - published_at
+      - sentiment
+  - name: workflow.create_research_review
+    transport: mcp
+    access: limited_write
+    purpose: Queue a human analyst review.
+    allowed_payload:
+      - ticker
+      - signal
+      - confidence
+      - rationale
+    denied_payload:
+      - order_intent
+      - position_size

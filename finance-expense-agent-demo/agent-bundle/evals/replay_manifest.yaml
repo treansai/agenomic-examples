@@ -1,0 +1,11 @@
+version: 1
+bundle: finance-expense-agent-demo
+trace_files:
+  - ../../traces/synthetic_expense_traces.jsonl
+checks:
+  - id: caps-enforced
+    description: Over per-diem or hotel cap lines must escalate.
+  - id: missing-receipts-clarify-or-escalate
+    description: Missing receipts above 25 EUR must trigger clarify or escalate.
+  - id: personal-expense-escalates
+    description: Personal-suspected categories must escalate.

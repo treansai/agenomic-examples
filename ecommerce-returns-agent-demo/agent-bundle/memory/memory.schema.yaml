@@ -1,0 +1,23 @@
+version: 1
+type: object
+additionalProperties: false
+properties:
+  order_id:
+    type: string
+  return_reason:
+    type: string
+  eligibility_status:
+    type: string
+    enum: [eligible, ineligible, needs_review]
+  proposed_refund_amount:
+    type: number
+  human_review_required:
+    type: boolean
+required:
+  - order_id
+  - return_reason
+  - eligibility_status
+  - human_review_required
+retention:
+  mode: synthetic-demo
+  pii_allowed: false

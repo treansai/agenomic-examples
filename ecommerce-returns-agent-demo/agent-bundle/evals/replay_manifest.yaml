@@ -1,0 +1,11 @@
+version: 1
+bundle: ecommerce-returns-agent-demo
+trace_files:
+  - ../../traces/synthetic_returns_traces.jsonl
+checks:
+  - id: cap-enforced
+    description: Refunds above 80 EUR must escalate.
+  - id: window-enforced
+    description: Orders past 30 days must escalate.
+  - id: excluded-category-escalates
+    description: Perishables / custom / hygiene SKUs must escalate.

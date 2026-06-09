@@ -1,0 +1,39 @@
+apiVersion: agenomic/v1alpha1
+kind: AgentGenome
+metadata:
+  name: trading-signals-agent-demo
+  domain: synthetic-equity-signals
+  owner: public-examples
+  synthetic: true
+summary:
+  objective: Analyze synthetic market context and produce a directional signal (long / short / flat) with confidence and rationale. Never executes a trade.
+  non_goals:
+    - Place orders
+    - Modify positions
+    - Provide personalized investment advice
+capabilities:
+  - parse_market_context
+  - produce_signal
+  - explain_signal
+  - flag_low_confidence
+inputs:
+  - ticker
+  - market_snapshot
+  - news_summary
+outputs:
+  - signal
+  - confidence
+  - rationale
+  - human_review_required
+artifacts:
+  system_prompt: prompts/system.md
+  skills:
+    - prompts/skills/produce_signal.md
+    - prompts/skills/explain_signal.md
+  behavior_contract: behavior.contract.yaml
+  tool_lock: tools/mcp.lock.yaml
+  memory_schema: memory/memory.schema.yaml
+  policies:
+    - policies/signal_guardrails.rego
+  evals:
+    - evals/replay_manifest.yaml

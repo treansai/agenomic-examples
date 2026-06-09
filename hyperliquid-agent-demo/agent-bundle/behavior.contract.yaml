@@ -1,0 +1,38 @@
+version: 1
+agent: hyperliquid-agent-demo
+mission: Review proposed perpetual orders on a synthetic Hyperliquid-style venue and recommend a disposition. Never signs or broadcasts.
+allowed_outputs:
+  - order_disposition
+  - leverage_assessment
+  - liquidation_distance
+  - human_confirmation_reason
+prohibited_actions:
+  - sign_transaction
+  - broadcast_transaction
+  - manage_private_key
+  - bridge_funds
+  - withdraw_funds
+limits:
+  max_leverage: 10
+  min_liquidation_distance_pct: 8
+  max_single_order_notional_pct_of_equity: 25
+rules:
+  - id: classify-disposition
+    requirement: Every order must receive one disposition from {accept_for_human_confirmation, reduce_size, reject}.
+  - id: leverage-cap
+    requirement: Effective leverage above 10x must trigger reduce_size or reject.
+  - id: liquidation-distance
+    requirement: Liquidation distance below 8% must trigger reduce_size or reject.
+  - id: notional-cap
+    requirement: Single-order notional above 25% of account equity must trigger reduce_size.
+  - id: never-execute
+    requirement: The agent never returns a signed payload. Execution requires explicit human confirmation through the trading UI.
+human_review_required_when:
+  - leverage_ratio > 10
+  - liquidation_distance_pct < 8
+  - notional_pct_of_equity > 25
+  - disposition != "accept_for_human_confirmation"
+success_criteria:
+  - disposition is set
+  - leverage and liquidation distance are computed
+  - dangerous orders are reduced or rejected

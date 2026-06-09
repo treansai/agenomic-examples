@@ -1,0 +1,33 @@
+version: 1
+tools:
+  - name: orders.lookup
+    transport: mcp
+    access: read
+    purpose: Retrieve synthetic order snapshot.
+    allowed_fields:
+      - order_id
+      - items
+      - delivered_at
+      - currency
+      - total_eur
+      - fraud_score
+      - category
+  - name: knowledge_base.search_return_policy
+    transport: mcp
+    access: read
+    purpose: Retrieve return-policy excerpts.
+    output_requirements:
+      - policy_id
+      - title
+      - excerpt
+  - name: workflow.create_human_review
+    transport: mcp
+    access: limited_write
+    purpose: Queue a human refund review.
+    allowed_payload:
+      - order_id
+      - reason
+      - proposed_refund_amount
+    denied_payload:
+      - issued_refund
+      - chargeback_response

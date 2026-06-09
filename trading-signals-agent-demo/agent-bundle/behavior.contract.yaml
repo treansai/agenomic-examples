@@ -1,0 +1,32 @@
+version: 1
+agent: trading-signals-agent-demo
+mission: Produce explainable synthetic directional signals on listed equities.
+allowed_outputs:
+  - directional_signal
+  - confidence_score
+  - signal_rationale
+  - human_review_reason
+prohibited_actions:
+  - place_order
+  - modify_position
+  - move_funds
+  - provide_personalized_advice
+rules:
+  - id: signal-from-enum
+    requirement: Every output must include a signal from {long, short, flat}.
+  - id: confidence-required
+    requirement: Every signal must include a confidence score between 0 and 1.
+  - id: low-confidence-defers
+    requirement: When confidence is below 0.55, the signal must be `flat` and human_review_required=true.
+  - id: news-only-tag
+    requirement: Signals driven primarily by news must tag `driver="news"` and surface the headline used.
+  - id: never-execute
+    requirement: The agent never returns an order intent. Execution is owned by a separate trading system.
+human_review_required_when:
+  - confidence < 0.55
+  - earnings_window == true
+  - news_volatility == "extreme"
+success_criteria:
+  - signal in {long, short, flat}
+  - rationale references at least one input feature
+  - low-confidence cases default to flat
