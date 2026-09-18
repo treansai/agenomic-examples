@@ -137,3 +137,12 @@ python3 scripts/generate_synthetic_traces.py
 - The YAML, Markdown, and Rego files are intentionally compact and readable.
 - The lock files are illustrative examples of how a public Agenomic bundle can be organized.
 - The demo apps use only the Python standard library so the repository stays easy to explore.
+
+## License
+
+Copyright (C) 2026 Agenomic Contributors. GNU Affero General Public License
+v3.0 (`AGPL-3.0-only`). See [LICENSE](LICENSE).
+
+This repository is part of the Agenomic Community edition. Agenomic Cloud and
+Enterprise components live in separate, private repositories and are not
+covered by this license.
