@@ -47,23 +47,20 @@ production release of the refund agent, which pins version 1 of
 
 ## Run it
 
-Python 3.11 or later. From the repository root:
+Python 3.11 or later. Managed prompts are newer than the `agenomic` 0.1.3
+release on PyPI, so until a release ships `agenomic.prompts`, install the SDK
+from a checkout of the public `agenomic-python` repository, here cloned next
+to this one. From the repository root:
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install -r prompt-registry-langgraph-demo/app/requirements.txt
+.venv/bin/pip install -e ../agenomic-python \
+  -r prompt-registry-langgraph-demo/app/requirements.txt
 .venv/bin/python prompt-registry-langgraph-demo/app/main.py
 ```
 
-Managed prompts are newer than the `agenomic` 0.1.3 release on PyPI. Until a
-release ships `agenomic.prompts`, install the SDK from a checkout of the
-public `agenomic-python` repository, here cloned next to this one, in the
-same command:
-
-```bash
-.venv/bin/pip install -e ../agenomic-python \
-  -r prompt-registry-langgraph-demo/app/requirements.txt
-```
+Once such a release is published, drop `-e ../agenomic-python` from the
+install command.
 
 `requirements.txt` pins the LangGraph point the Python SDK is tested on:
 `langgraph` 1.2.11, `langgraph-checkpoint` 4.2.0, `langgraph-prebuilt` 1.1.0,
