@@ -192,14 +192,20 @@ def main() -> None:
     summary = json.loads(child.stdout.strip().splitlines()[-1])
     for name, entry in summary.items():
         print(f"process 2: {name} -> {entry['log']}")
-    paused, fresh = summary[PAUSED_THREAD], summary[NEW_THREAD]
-    assert paused["log"] == [
-        f"plan: {original_plan}",
-        f"approve: approved: {original_plan}",
-    ]
-    assert paused["digest"] == digests["old_manifest"]
-    assert fresh["log"] == [f"plan: {PROMOTED_PLAN}"]
-    assert fresh["digest"] == digests["new_manifest"]
+    expected = {
+        PAUSED_THREAD: {
+            "log": [f"plan: {original_plan}", f"approve: approved: {original_plan}"],
+            "digest": digests["old_manifest"],
+        },
+        NEW_THREAD: {
+            "log": [f"plan: {PROMOTED_PLAN}"],
+            "digest": digests["new_manifest"],
+        },
+    }
+    if summary != expected:
+        raise SystemExit(
+            f"a thread ran on the wrong prompts: expected {expected}, got {summary}"
+        )
     print(
         "the resumed thread kept",
         digests["old_manifest"][:19],

@@ -25,9 +25,12 @@ Notes for maintainers and coding agents working in this repository.
   committed bundle would only duplicate data.
 - The restart is the same script run again in a child process,
   `sys.executable main.py --resume <dir> <digest>`. The parent forwards the
-  child's stderr and asserts the logs and the checkpoint
-  `agenomic_prompt_manifest_digest` of both threads, so a regression fails
-  the run instead of printing plausible output. The code carries no comments
+  child's stderr, compares the logs and the checkpoint
+  `agenomic_prompt_manifest_digest` of both threads with the expected values
+  and exits non-zero on a difference, so a regression fails the run instead
+  of printing plausible output. The comparison is an explicit check, not
+  `assert`, because `python -O` and `PYTHONOPTIMIZE` strip assertions and the
+  run would then exit 0 on the wrong prompts. The code carries no comments
   or docstrings; the narrative is in its printed output and in the README.
 - `app/requirements.txt` pins the primary LangGraph point the Python SDK is
   tested on and lists `agenomic[langgraph]` without a version, because no
