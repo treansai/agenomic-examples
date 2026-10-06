@@ -1,0 +1,53 @@
+{
+  "schema": "agenomic.prompt_bundle/v1",
+  "workspace_id": "3f6d2a10-5c7b-4e8a-9d21-6b4c8e0f1a37",
+  "agent_id": "7a2c9e41-0b6d-4f3a-8e57-2d1c4b6a9f80",
+  "source": {
+    "channel": "production",
+    "channel_generation": 1
+  },
+  "release": {
+    "release_id": "5e082ef8-6d9a-4094-abfe-796f8aa738be",
+    "release_name": "av_0001",
+    "genome_version": null,
+    "bundle_id": "c519935e-ad8d-501a-896a-0c79dbd2eddd",
+    "bundle_hash": "blake3:599ab4b1c9bfbf498f1b36de9867dfc42a553806a30e4827d0405435fb68532d",
+    "legacy": false
+  },
+  "prompt_manifest_digest": "sha256:a8357e64d16f6ee230d7e15305ca43c9921e8ddb439a667c633aa58db5ce4b95",
+  "manifest": {
+    "schema": "agenomic.prompt_manifest/v1",
+    "agent_id": "7a2c9e41-0b6d-4f3a-8e57-2d1c4b6a9f80",
+    "slots": {
+      "planner.instructions": {
+        "prompt_id": "prm_refund_planner",
+        "version": 1,
+        "content_digest": "sha256:f62808893ef919e36b4c4db27503918d017bff9b84984909f54c6089e4708300"
+      }
+    },
+    "children": {}
+  },
+  "children": {},
+  "prompts": {
+    "prm_refund_planner:1": {
+      "prompt_id": "prm_refund_planner",
+      "version": 1,
+      "prompt_kind": "text",
+      "content_digest": "sha256:f62808893ef919e36b4c4db27503918d017bff9b84984909f54c6089e4708300",
+      "content": {
+        "body": "Plan the refund in three steps: confirm the order, check the return window, refund the card.",
+        "fragments": {},
+        "kind": "text",
+        "output_contract": null,
+        "partials": {},
+        "renderer_version": "1",
+        "schema": "agenomic.prompt_content/v1",
+        "template_format": "agenomic-fstring/v1",
+        "variables": {}
+      }
+    }
+  },
+  "exported_at": "2026-10-05T17:09:09Z",
+  "expires_at": null,
+  "prompt_bundle_digest": "sha256:c51239a25d333dc00ad73dd222c4656eaaec41b542ba228387c1c1ffb547da84"
+}
